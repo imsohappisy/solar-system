@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태양계 시뮬레이션</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <canvas id="simCanvas"></canvas>
+
+    <!-- Main HUD Overlay -->
+    <div id="mainHud" class="overlay glassmorphism">
+        <div class="hud-top">
+            <div class="presets">
+
+                <span class="label">카메라 Focus</span>
+                <select id="focusSelector" class="btn" style="background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); color: white; cursor: pointer; padding: 6px 10px;">
+                    <option value="-1">자유 시점</option>
+                </select>
+            </div>
+            <button id="btnSettings" class="btn btn-icon btn-primary" title="세부 설정">
+                <span class="material-icons">settings</span>
+            </button>
+        </div>
+
+        <div class="hud-bottom">
+            <div class="controls">
+                <button id="btnReset" class="btn btn-icon" title="처음으로 리셋">
+                    <span class="material-icons">replay</span>
+                </button>
+                <button id="btnPlayPause" class="btn btn-icon btn-large btn-primary" title="재생 / 일시정지">
+                    <span class="material-icons" id="iconPlayPause">pause</span>
+                </button>
+                <button id="btnClearTrails" class="btn btn-icon" title="궤적 지우기">
+                    <span class="material-icons">clear_all</span>
+                </button>
+            </div>
+            <div class="speed-control">
+                <span class="material-icons">speed</span>
+                <input type="range" id="speedSlider" min="0" max="8.5" step="0.1" value="0">
+                <span id="speedValue" style="min-width: 130px; display:inline-block; text-align:right;">1x (리얼타임)</span>
+            </div>
+        </div>
+        
+        <div class="camera-info">
+            좌클릭: 카메라 회전 | 우클릭: 이동 | 휠: 확대/축소
+        </div>
+    </div>
+
+    <!-- Advanced Settings Modal -->
+    <div id="settingsModal" class="modal-container hidden">
+        <div class="modal glassmorphism">
+            <div class="modal-header">
+                <h2>시뮬레이션 세부 설정</h2>
+                <button id="btnCloseSettings" class="btn btn-icon"><span class="material-icons">close</span></button>
+            </div>
+            <div class="modal-content">
+                <div class="global-settings">
+                    <h3>전역 설정</h3>
+                    <div class="setting-row">
+                        <label>중력 상수 (G)</label>
+                        <input type="number" id="inputG" value="1" step="0.1">
+                    </div>
+                </div>
+
+                <div class="body-settings" id="bodySettingsContainer">
+                    <!-- Javascript will generate settings mapping for bodies here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnApplySettings" class="btn btn-primary">적용 및 리셋</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <script src="main.js"></script>
+</body>
+</html>
